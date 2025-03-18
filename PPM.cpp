@@ -2,46 +2,34 @@
 #include <iostream>
 #include <string>
  
-std::string PPM::getComment(std::ifstream& f)
+std::string PPM::getComment()
 {
-       std::string s;
-       std::getline(f, s);
-       return s;
+       return comment;
 }
  
-unsigned int PPM::getHeight(std::ifstream& f)
+unsigned int PPM::getHeight()
 {
-       unsigned int x;
-       f >> x;
-       return x;
+       return height;
 }
  
-std::string PPM::getMagic(std::ifstream& f)
+std::string PPM::getMagic()
 {
-       std::string s;
-       std::getline(f, s);
-       return s;
+       return magic;
 }
  
-unsigned int PPM::getMaxColor(std::ifstream& f)
+unsigned int PPM::getMaxColor()
 {
-       unsigned int x;
-       f >> x;
-       return x;
+       return maxColor;
 }
  
-unsigned int PPM::getSize(std::ifstream& f)
+unsigned int PPM::getSize()
 {
-       unsigned int x;
-       f >> x;
-       return x;
+       return pixels.size();
 }
  
-unsigned int PPM::getWidth(std::ifstream& f)
+unsigned int PPM::getWidth()
 {
-       unsigned int x;
-       f >> x;
-       return x;
+       return width;
 }
  
 const Pixel& PPM::operator[](unsigned int x) const
@@ -60,7 +48,8 @@ const PPM& PPM::operator=(const PPM& a)
        this->height = a.height;
        this->magic = a.magic;
        this->maxColor = a.maxColor;
-       this->pixels = a.pixels; //change to deep copy
+       this->pixels = a.pixels; //should be a deep copy
+
        this->width = a.width;
 }
  
@@ -78,8 +67,7 @@ const PPM& PPM::operator=(PPM&& a) //still needs some work ( i forgot move seman
        this->maxColor = a.maxColor;
        a.maxColor = 0;
  
-       this->pixels = a.pixels; //copy only the 0th element, then set a.pixels to nullptr
-      
+       swap(this->pixels, a.pixels);
  
        this->width = a.width;
        a.width = 0;

@@ -15,17 +15,17 @@ private:
        unsigned int width;
 public:
        ~PPM() {}
-       std::string getComment(std::ifstream& f);
+       std::string getComment();
        
-       unsigned int getHeight(std::ifstream& f);
+       unsigned int getHeight();
  
-       std::string getMagic(std::ifstream& f);
+       std::string getMagic();
  
-       unsigned int getMaxColor(std::ifstream& f);
+       unsigned int getMaxColor();
  
-       unsigned int getSize(std::ifstream& f);
+       unsigned int getSize();
  
-       unsigned int getWidth(std::ifstream& f);
+       unsigned int getWidth();
  
        const Pixel& operator[](unsigned int x) const; //offset
  
