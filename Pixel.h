@@ -60,14 +60,16 @@ public:
     }
     Pixel()
     {
-        //default constructor
+        red = 0;
+        green = 0;
+        blue = 0;
     }
     Pixel(const Pixel & obj)
     {
         //copy constructor
         red = obj.red;
         green = obj.green;
-        green = obj.green;
+        blue = obj.blue;
     }
     Pixel(unsigned int red ,unsigned int green, unsigned int blue)
     {
@@ -85,16 +87,19 @@ public:
         const char* errorMessage;
         const char* offendingIndex;
     public:
-        Pixel::InputOutOfBoundsException::InputOutOfBoundsException(const char* message,const char*index)
+        //Pixel::InputOutOfBoundsException::InputOutOfBoundsException(const char* message,const char*index)
+        InputOutOfBoundsException(const char* message, const char* index)
         {
             errorMessage=message; 
             offendingIndex = index;
         }
-        const char* Pixel::InputOutOfBoundsException::returnError()
+        //const char* Pixel::InputOutOfBoundsException::returnError()
+        const char* returnError()
         {
             return errorMessage;
         }
-        const char* Pixel::InputOutOfBoundsException::returnOffendingIndex()
+        //const char* Pixel::InputOutOfBoundsException::returnOffendingIndex()
+        const char* returnOffendingIndex()
         {
             return offendingIndex;
         }
