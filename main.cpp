@@ -2,26 +2,44 @@
 #include <fstream>
 
 int main() {
-    std::ifstream input("input.ppm");
-    if (!input) {
-        std::cerr << "Failed to open input.ppm" << std::endl;
-        return 1;
-    }
 
-    PPM image(input);
+    std::ifstream input("input.ppm");
+   
+    PPM original(input);
     input.close();
 
-    //Graphics::ApplyGrayscale(image);
-    //Graphics::ApplyBlur(image);
-    //Graphics::ApplySharpen(image);
-    //Graphics::ApplyInvert(image);
-    //Graphics::AdjustBrightness(image, 75);
+    PPM grayscale(original);
+    Graphics::ApplyGrayscale(grayscale);
+    grayscale.SaveToImageFile("grayscale.ppm");
 
-    //Graphics::Scale(image, 1.5f);  
-    //Graphics::Rotate(image, 45.0f);  
-    Graphics::Translate(image, 300, 0);
 
-    image.SaveToImageFile("output.ppm");
+    PPM blur(original);
+    Graphics::ApplyBlur(blur);
+    blur.SaveToImageFile("blur.ppm");
+
+    PPM sharpen(original);
+    Graphics::ApplySharpen(sharpen);
+    sharpen.SaveToImageFile("sharpen.ppm");
+
+    PPM invert(original);
+    Graphics::ApplyInvert(invert);
+    invert.SaveToImageFile("invert.ppm");
+
+    PPM bright(original);
+    Graphics::AdjustBrightness(bright, 75);
+    bright.SaveToImageFile("bright.ppm");
+
+    PPM scale(original);
+    Graphics::Scale(scale, 1.5f);  
+    scale.SaveToImageFile("scale.ppm");
+
+    PPM rotate(original);
+    Graphics::Rotate(rotate, 45.0f);  
+    rotate.SaveToImageFile("rotate.ppm");
+
+    PPM translate(original);
+    Graphics::Translate(translate, 300, 0);
+    translate.SaveToImageFile("translate.ppm");
 
     return 0;
 }

@@ -34,11 +34,10 @@ public:
  
        const Pixel& operator[](unsigned int x); //also offset?
  
-       //const PPM& operator=(const PPM& a); //copy
+       const PPM& operator=(const PPM& a); //copy
  
-       //const PPM& operator=(PPM&&); //move
+       const PPM& operator=(PPM&&); //move
  
-       //PPM() {}
        PPM() : height(0), maxColor(255), width(0) {
        }
  
@@ -46,7 +45,7 @@ public:
  
        PPM(std::ifstream&);
  
-       //PPM(PPM&&);
+       PPM(PPM&&);
  
        void Resize(unsigned int);
  
@@ -103,36 +102,38 @@ const Pixel& PPM::operator[](unsigned int x)
        return pixels[x];
 }
  
-//const PPM& PPM::operator=(const PPM& a)
-//{
-//       this->comment = a.comment;
-//       this->height = a.height;
-//       this->magic = a.magic;
-//       this->maxColor = a.maxColor;
-//       this->pixels = a.pixels; //should be a deep copy
-//
-//       this->width = a.width;
-//}
+const PPM& PPM::operator=(const PPM& a)
+{
+       this->comment = a.comment;
+       this->height = a.height;
+       this->magic = a.magic;
+       this->maxColor = a.maxColor;
+       this->pixels = a.pixels; //should be a deep copy
+
+       this->width = a.width;
+       return *this;
+}
  
-//const PPM& PPM::operator=(PPM&& a) //still needs some work ( i forgot move semantics)
-//{
-//       this->comment = a.comment;
-//       a.comment = nullptr;
-// 
-//       this->height = a.height;
-//       a.height = 0;
-// 
-//       this->magic = a.magic;
-//       a.magic = nullptr;
-// 
-//       this->maxColor = a.maxColor;
-//       a.maxColor = 0;
-// 
-//       swap(this->pixels, a.pixels);
-// 
-//       this->width = a.width;
-//       a.width = 0;
-//}
+const PPM& PPM::operator=(PPM&& a) //still needs some work ( i forgot move semantics)
+{
+       this->comment = a.comment;
+       a.comment = nullptr;
+ 
+       this->height = a.height;
+       a.height = 0;
+ 
+       this->magic = a.magic;
+       a.magic = nullptr;
+ 
+       this->maxColor = a.maxColor;
+       a.maxColor = 0;
+ 
+       swap(this->pixels, a.pixels);
+ 
+       this->width = a.width;
+       a.width = 0;
+       return *this;
+}
  
 PPM::PPM(const PPM& a)
 {
@@ -144,24 +145,6 @@ PPM::PPM(const PPM& a)
        this->width = a.width;
       
 }
- 
-//PPM::PPM(std::ifstream& a)
-//{
-//       a >> this->magic;
-//       a >> this->comment;
-//       a >> this->width >> this->height;
-//       a >> this->maxColor;
-//      
-//       unsigned char red, green, blue;
-// 
-// 
-//       for(int i = 0; i < (width*height); i++)
-//       {
-//             //get RGB values out of PPM, and put them into pixels vector
-//             a >> red >> green >> blue;
-//             this->pixels.push_back(Pixel(red, green, blue));
-//       }
-//}
 
 PPM::PPM(std::ifstream& a) {
     string dimensions;
@@ -177,26 +160,26 @@ PPM::PPM(std::ifstream& a) {
     }
 }
  
-//PPM::PPM(PPM&& a)
-//{
-//       this->comment = a.comment;
-//       a.comment = nullptr;
-// 
-//       this->height = a.height;
-//       a.height = 0;
-// 
-//       this->magic = a.magic;
-//       a.magic = nullptr;
-// 
-//       this->maxColor = a.maxColor;
-//       a.maxColor = 0;
-// 
-//       this->pixels = a.pixels; //copy only the 0th element, then set a.pixels to nullptr
-// 
-// 
-//       this->width = a.width;
-//       a.width = 0;
-//}
+PPM::PPM(PPM&& a)
+{
+       this->comment = a.comment;
+       a.comment = nullptr;
+ 
+       this->height = a.height;
+       a.height = 0;
+ 
+       this->magic = a.magic;
+       a.magic = nullptr;
+ 
+       this->maxColor = a.maxColor;
+       a.maxColor = 0;
+ 
+       this->pixels = a.pixels; //copy only the 0th element, then set a.pixels to nullptr
+ 
+ 
+       this->width = a.width;
+       a.width = 0;
+}
  
 void PPM::Resize(unsigned int newSize) {
     pixels.resize(newSize);
